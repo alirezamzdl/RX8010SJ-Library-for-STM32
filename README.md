@@ -128,7 +128,7 @@ After calling this function, the following struct fields are updated:
 | `week`  | Weekday (raw value)  |
 | `day`   | Day of month         |
 | `month` | Month                |
-| `year`  | Year (2-digit)        |
+| `year`  | Year (last 2 digit)        |
 
 ---
 
@@ -158,11 +158,6 @@ RX8010_WriteReg(&rtc, 0x1E, 0x00);          // Disable interrupts
 
 ---
 
-## 📄 License
-
-This project is released under the **MIT License**; feel free to use it in your personal or commercial projects.
-
----
 
 ## 🤝 Contributing
 
