@@ -155,7 +155,8 @@ RX8010_WriteReg(&rtc, 0x1E, 0x00);          // Disable interrupts
 - The chip's I2C address is defined as `0x32 << 1` (8-bit format required by HAL).
 - Always call `RX8010_Init` before using `RX8010_GetTime` or `RX8010_SetTime`.
 - If you're using a backup battery, it's a good idea to check the VLF flag after the initial connection to confirm the stored time is still valid.
-
+- The Module Can be used as an On Board Module or for Beardboard based projects
+- The Module Already Includes Pullup Resistors for I2C interface , so no external Pullups needed
 ---
 
 
