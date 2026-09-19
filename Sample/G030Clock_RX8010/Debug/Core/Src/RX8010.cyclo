@@ -1,0 +1,7 @@
+../Core/Src/RX8010.c:5:6:RX8010_Init	1
+../Core/Src/RX8010.c:24:9:BCD2DEC	1
+../Core/Src/RX8010.c:28:6:RX8010_GetTime	1
+../Core/Src/RX8010.c:48:6:RX8010_WriteReg	1
+../Core/Src/RX8010.c:58:9:RX8010_ReadReg	1
+../Core/Src/RX8010.c:73:9:DEC2BCD	1
+../Core/Src/RX8010.c:77:6:RX8010_SetTime	1

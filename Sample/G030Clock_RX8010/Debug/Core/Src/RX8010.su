@@ -1,0 +1,7 @@
+../Core/Src/RX8010.c:5:6:RX8010_Init	32	static
+../Core/Src/RX8010.c:24:9:BCD2DEC	16	static
+../Core/Src/RX8010.c:28:6:RX8010_GetTime	48	static
+../Core/Src/RX8010.c:48:6:RX8010_WriteReg	32	static
+../Core/Src/RX8010.c:58:9:RX8010_ReadReg	48	static
+../Core/Src/RX8010.c:73:9:DEC2BCD	24	static
+../Core/Src/RX8010.c:77:6:RX8010_SetTime	48	static
