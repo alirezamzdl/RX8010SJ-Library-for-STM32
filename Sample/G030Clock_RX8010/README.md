@@ -24,29 +24,44 @@ The project is an STM32CubeIDE project (generated from a `.ioc` file with STM32C
 
 **RTC (I²C1)**
 
-| Signal | Pin |
-|---|---|
-| I2C1_SCL | PB8 |
-| I2C1_SDA | PB9 |
+| Signal | Pin | Mode (CubeMX) |
+|---|---|---|
+| I2C1_SCL | PB8 | I2C (Alternate Function) |
+| I2C1_SDA | PB9 | I2C (Alternate Function) |
 
 **LCD (8-bit parallel bus on GPIOB + control lines)**
 
-| Signal | Pin | Purpose |
-|---|---|---|
-| LCD_D0–D7 | PB0–PB7 | 8-bit data bus |
-| LCD_CS | PB10 | Chip select |
-| LCD_RESET | PB11 | Reset |
-| LCD_A0 | PB12 | Data/Command select |
-| LCD_WR | PB13 | Write strobe |
-| LCD_RD | PB14 | Read strobe |
-| LCD_BACKLIGHT | PD1 | Backlight enable |
+| Signal | Pin | Mode (CubeMX) | Purpose |
+|---|---|---|---|
+| LCD_D0–D7 | PB0–PB7 | GPIO_Output | 8-bit data bus |
+| LCD_CS | PB10 | GPIO_Output | Chip select |
+| LCD_RESET | PB11 | GPIO_Output | Reset |
+| LCD_A0 | PB12 | GPIO_Output | Data/Command select |
+| LCD_WR | PB13 | GPIO_Output | Write strobe |
+| LCD_RD | PB14 | GPIO_Output | Read strobe |
+| LCD_BACKLIGHT | PD1 | GPIO_Output | Backlight enable |
+
+All LCD pins are configured as plain **push-pull GPIO outputs** and are bit-banged directly in software (`SPLC501.c`) — there is no hardware peripheral (e.g. FSMC/parallel LCD controller) driving the bus.
 
 **Debug**
 
-| Signal | Pin |
-|---|---|
-| SWDIO | PA13 |
-| SWCLK | PA14 |
+| Signal | Pin | Mode (CubeMX) |
+|---|---|---|
+| SWDIO | PA13 | Serial Wire (Debug) |
+| SWCLK | PA14 (BOOT0) | Serial Wire (Debug) |
+
+**Oscillator (configured but unused by firmware)**
+
+| Signal | Pin | Mode (CubeMX) |
+|---|---|---|
+| RCC_OSC_IN | PF0 | HSE – External Oscillator |
+| RCC_OSC_OUT | PF1 | HSE – External Oscillator |
+
+> ℹ️ The `.ioc` reserves PF0/PF1 for an external HSE crystal, but `SystemClock_Config()` in `main.c` actually selects the **internal HSI** (16 MHz) as the system clock source, so no external crystal is required and these two pins are effectively unused in this build.
+
+### CubeMX Pinout Configuration
+
+![STM32CubeMX pinout configuration](docs/MX_Pinout.png)
 
 ## Project Structure
 
@@ -138,3 +153,7 @@ Alternatively, build with the included Eclipse-style `Debug/makefile` from the c
 - Use the RX8010's alarm/interrupt output for periodic wake-ups instead of polling every second with `HAL_Delay(1000)`.
 - Use `rtc.week` (weekday register) to also display the day of the week.
 - Add battery-backup handling using the RX8010's VLF (voltage-low flag) to detect power loss and prompt a time re-sync.
+
+## License
+
+No license file was found in the archive. Treat the ST-provided HAL/CMSIS files under `Drivers/` as governed by their respective ST licenses (see the `LICENSE.txt` files inside those folders); the application-level code (`RX8010.c/h`, `SPLC501.c/h`, `main.c`) has no explicit license specified — add one if you plan to share or reuse it.
